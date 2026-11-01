@@ -63,18 +63,12 @@ export const ConceptDetailModal: React.FC<ConceptDetailModalProps> = ({
         {/* Header */}
         <div className="p-5 pb-3 border-b border-stone-100 dark:border-stone-800 flex items-start justify-between">
           <div>
-            <div className="flex items-center gap-1.5 text-xs text-stone-500 dark:text-stone-400">
-              <span className="text-cinnamon-600 dark:text-cinnamon-400 font-semibold">
-                {concept.category}
-              </span>
-              <span>·</span>
-              <span className="font-mono text-[11px] text-stone-400">
-                {concept.difficulty}
-              </span>
-            </div>
-            <h3 className="text-lg font-bold text-stone-900 dark:text-stone-50 mt-0.5">
+            <h3 className="text-lg font-bold text-stone-900 dark:text-stone-50">
               {concept.name}
             </h3>
+            <p className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+              {concept.tagline}
+            </p>
           </div>
           <button
             onClick={onClose}
