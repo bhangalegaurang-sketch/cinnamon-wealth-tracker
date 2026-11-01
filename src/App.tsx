@@ -5,6 +5,7 @@ import { HoldingsList } from './components/holdings/HoldingsList';
 import { AssetAllocationView } from './components/allocation/AssetAllocationView';
 import { TransparentFeesView } from './components/fees/TransparentFeesView';
 import { HoldingDetailModal } from './components/common/HoldingDetailModal';
+import { FeeTaxInfoModal } from './components/fees/FeeTaxInfoModal';
 import { ActiveTab, Holding } from './types';
 import { MOCK_HOLDINGS } from './data/mockPortfolio';
 
@@ -13,6 +14,7 @@ export const App: React.FC = () => {
   const [isPrivate, setIsPrivate] = useState<boolean>(false);
   const [selectedHolding, setSelectedHolding] = useState<Holding | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [isFeeInfoOpen, setIsFeeInfoOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -40,6 +42,7 @@ export const App: React.FC = () => {
       onTogglePrivacy={togglePrivacy}
       theme={theme}
       onToggleTheme={toggleTheme}
+      onOpenFeeInfo={() => setIsFeeInfoOpen(true)}
     >
       {activeTab === 'dashboard' && (
         <UnifiedDashboard
@@ -61,7 +64,10 @@ export const App: React.FC = () => {
       )}
 
       {activeTab === 'fees' && (
-        <TransparentFeesView isPrivate={isPrivate} />
+        <TransparentFeesView
+          isPrivate={isPrivate}
+          onOpenFeeInfo={() => setIsFeeInfoOpen(true)}
+        />
       )}
 
       {/* Holding Detail Sheet */}
@@ -69,6 +75,12 @@ export const App: React.FC = () => {
         holding={selectedHolding}
         onClose={() => setSelectedHolding(null)}
         isPrivate={isPrivate}
+      />
+
+      {/* Fee Rules & UK Tax Wrappers Info Modal */}
+      <FeeTaxInfoModal
+        isOpen={isFeeInfoOpen}
+        onClose={() => setIsFeeInfoOpen(false)}
       />
     </MobileAppShell>
   );

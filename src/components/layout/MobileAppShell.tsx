@@ -16,6 +16,7 @@ interface MobileAppShellProps {
   onTogglePrivacy: () => void;
   theme: 'light' | 'dark';
   onToggleTheme: () => void;
+  onOpenFeeInfo?: () => void;
   children: React.ReactNode;
 }
 
@@ -27,6 +28,7 @@ export const MobileAppShell: React.FC<MobileAppShellProps> = ({
   onTogglePrivacy,
   theme,
   onToggleTheme,
+  onOpenFeeInfo,
   children,
 }) => {
   const getTabTitle = () => {
@@ -101,6 +103,7 @@ export const MobileAppShell: React.FC<MobileAppShellProps> = ({
               onToggleTheme={onToggleTheme}
               title={getTabTitle()}
               subtitle={getTabSubtitle()}
+              onOpenFeeInfo={onOpenFeeInfo}
             />
           </div>
 

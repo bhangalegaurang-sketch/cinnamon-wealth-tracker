@@ -1,5 +1,5 @@
 import React from 'react';
-import { Eye, EyeOff, Sun, Moon } from 'lucide-react';
+import { Eye, EyeOff, Sun, Moon, Info } from 'lucide-react';
 import { PORTFOLIO_SUMMARY } from '../../data/mockPortfolio';
 
 interface HeaderProps {
@@ -9,6 +9,7 @@ interface HeaderProps {
   onToggleTheme: () => void;
   title?: string;
   subtitle?: string;
+  onOpenFeeInfo?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -18,6 +19,7 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleTheme,
   title,
   subtitle,
+  onOpenFeeInfo,
 }) => {
   return (
     <header className="sticky top-0 z-30 px-5 pt-3 pb-3 backdrop-blur-md transition-colors border-b dark:bg-stone-950/80 dark:border-stone-850 dark:border-stone-800/80 bg-stone-50/85 border-stone-200">
@@ -80,14 +82,38 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {title && (
-        <div className="mt-3 pt-1">
-          <h1 className="text-xl font-bold tracking-tight text-stone-900 dark:text-stone-50">
-            {title}
-          </h1>
-          {subtitle && (
-            <p className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
-              {subtitle}
-            </p>
+        <div className="mt-3 pt-1 flex items-center justify-between">
+          <div>
+            <div className="flex items-center gap-1.5">
+              <h1 className="text-xl font-bold tracking-tight text-stone-900 dark:text-stone-50">
+                {title}
+              </h1>
+              {title === 'Fees' && onOpenFeeInfo && (
+                <button
+                  onClick={onOpenFeeInfo}
+                  title="View fee percentages & UK tax rules"
+                  aria-label="Fee and tax rules info"
+                  className="p-1 rounded-full text-stone-400 hover:text-cinnamon-600 dark:hover:text-cinnamon-400 hover:bg-stone-200/60 dark:hover:bg-stone-800 transition-colors"
+                >
+                  <Info className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+            {subtitle && (
+              <p className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+                {subtitle}
+              </p>
+            )}
+          </div>
+
+          {title === 'Fees' && onOpenFeeInfo && (
+            <button
+              onClick={onOpenFeeInfo}
+              className="flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-medium bg-stone-100 hover:bg-stone-200/80 dark:bg-stone-850 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-800 transition-colors shrink-0"
+            >
+              <Info className="w-3 h-3 text-cinnamon-600 dark:text-cinnamon-400" />
+              <span>Tax & rules</span>
+            </button>
           )}
         </div>
       )}

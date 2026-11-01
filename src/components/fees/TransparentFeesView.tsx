@@ -5,7 +5,6 @@ import {
   ShieldCheck,
   Info,
   ChevronRight,
-  Sparkles,
   PieChart,
 } from 'lucide-react';
 import { PORTFOLIO_SUMMARY, MOCK_FEES } from '../../data/mockPortfolio';
@@ -14,9 +13,13 @@ import { formatGBP } from '../../utils/formatters';
 
 interface TransparentFeesViewProps {
   isPrivate: boolean;
+  onOpenFeeInfo?: () => void;
 }
 
-export const TransparentFeesView: React.FC<TransparentFeesViewProps> = ({ isPrivate }) => {
+export const TransparentFeesView: React.FC<TransparentFeesViewProps> = ({
+  isPrivate,
+  onOpenFeeInfo,
+}) => {
   const [downloadSuccess, setDownloadSuccess] = useState<string | null>(null);
   const [portfolioStyle, setPortfolioStyle] = useState<PortfolioType>('fullyManaged');
   const [customAum, setCustomAum] = useState<number>(34500);
@@ -51,7 +54,7 @@ export const TransparentFeesView: React.FC<TransparentFeesViewProps> = ({ isPriv
   const monthlyTotalCost = annualTotalCost / 12;
   const effectiveAnnualRate = (annualTotalCost / customAum) * 100;
 
-  // Comparison with traditional wealth manager (1.75% + 0.3% trading = 2.05%)
+  // Comparison with traditional wealth manager (1.75%)
   const traditionalAnnualFee = customAum * 0.0175;
   const annualSavings = traditionalAnnualFee - annualTotalCost;
 
@@ -138,7 +141,7 @@ export const TransparentFeesView: React.FC<TransparentFeesViewProps> = ({ isPriv
                 </span>
               </div>
               <span className="text-[11px] text-stone-500 dark:text-stone-400">
-                Paid to ETF providers (range: 0.14% – 0.39%)
+                Paid directly to ETF managers (0.14% – 0.39%)
               </span>
             </div>
             <div className="text-right font-mono font-semibold text-stone-900 dark:text-stone-100">
@@ -165,6 +168,29 @@ export const TransparentFeesView: React.FC<TransparentFeesViewProps> = ({ isPriv
           </div>
         </div>
       </section>
+
+      {/* Info Button Quick Card linking to Rules & Tax Wrappers */}
+      {onOpenFeeInfo && (
+        <div
+          onClick={onOpenFeeInfo}
+          className="p-3.5 rounded-2xl bg-stone-100/80 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 hover:border-cinnamon-500/50 flex items-center justify-between cursor-pointer transition-colors shadow-subtle group"
+        >
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-lg bg-cinnamon-100 dark:bg-cinnamon-950/60 text-cinnamon-700 dark:text-cinnamon-400 flex items-center justify-center">
+              <Info className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-xs font-semibold text-stone-900 dark:text-stone-100 block group-hover:text-cinnamon-600 dark:group-hover:text-cinnamon-400 transition-colors">
+                View Fee Percentages & UK Tax Rules
+              </span>
+              <span className="text-[11px] text-stone-500 dark:text-stone-400 block">
+                ISA, LISA 25% charge notice, GIA allowances & tier rules
+              </span>
+            </div>
+          </div>
+          <ChevronRight className="w-4 h-4 text-stone-400 group-hover:translate-x-0.5 transition-transform" />
+        </div>
+      )}
 
       {/* Zero Fee Guarantee (Nutmeg exact policy) */}
       <section className="p-5 rounded-3xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-subtle">
@@ -263,60 +289,6 @@ export const TransparentFeesView: React.FC<TransparentFeesViewProps> = ({ isPriv
           <div className="flex items-center justify-between text-emerald-600 dark:text-emerald-400 mt-1 font-medium">
             <span>AUM threshold to offset CAC:</span>
             <span className="font-mono font-bold">£20,000 (Met: £34.5k)</span>
-          </div>
-        </div>
-      </section>
-
-      {/* UK Tax Wrappers Section */}
-      <section className="p-5 rounded-3xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-subtle space-y-3">
-        <h4 className="text-sm font-semibold text-stone-900 dark:text-stone-100">
-          UK Tax Wrappers & Rules
-        </h4>
-
-        <div className="space-y-2 text-xs">
-          {/* Stocks & Shares ISA */}
-          <div className="p-3 rounded-2xl bg-stone-50 dark:bg-stone-950 border border-stone-100 dark:border-stone-800/80">
-            <div className="flex items-center justify-between">
-              <span className="font-semibold text-stone-900 dark:text-stone-100">
-                Stocks & Shares ISA
-              </span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-                100% Tax-Free
-              </span>
-            </div>
-            <p className="text-[11px] text-stone-500 dark:text-stone-400 mt-1 leading-relaxed">
-              Capital gains and dividends earned inside your ISA are completely tax-free under UK rules. You have utilized £18,500 of your £20,000 allowance this tax year.
-            </p>
-          </div>
-
-          {/* Lifetime ISA */}
-          <div className="p-3 rounded-2xl bg-stone-50 dark:bg-stone-950 border border-stone-100 dark:border-stone-800/80">
-            <div className="flex items-center justify-between">
-              <span className="font-semibold text-stone-900 dark:text-stone-100">
-                Lifetime ISA (LISA)
-              </span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded font-semibold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">
-                25% Bonus / Rule Notice
-              </span>
-            </div>
-            <p className="text-[11px] text-stone-500 dark:text-stone-400 mt-1 leading-relaxed">
-              Includes 25% government bonus on deposits up to £4,000/yr. Subject to a 25% government withdrawal charge if withdrawn for reasons other than buying a first home (up to £450k), age 60, or terminal illness.
-            </p>
-          </div>
-
-          {/* General Investment Account */}
-          <div className="p-3 rounded-2xl bg-stone-50 dark:bg-stone-950 border border-stone-100 dark:border-stone-800/80">
-            <div className="flex items-center justify-between">
-              <span className="font-semibold text-stone-900 dark:text-stone-100">
-                General Investment Account (GIA)
-              </span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded font-semibold bg-stone-200 text-stone-700 dark:bg-stone-800 dark:text-stone-300">
-                Standard UK Tax
-              </span>
-            </div>
-            <p className="text-[11px] text-stone-500 dark:text-stone-400 mt-1 leading-relaxed">
-              No tax wrapper. Investors are personally responsible for calculating UK capital gains tax (above £3,000 allowance) and dividend tax (above £500 allowance).
-            </p>
           </div>
         </div>
       </section>
