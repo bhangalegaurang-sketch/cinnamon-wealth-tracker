@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Layers, PieChart, Receipt } from 'lucide-react';
+import { LayoutDashboard, Layers, PieChart, Receipt, BookOpen } from 'lucide-react';
 import { ActiveTab } from '../../types';
 
 interface BottomNavProps {
@@ -40,6 +40,12 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       icon: Receipt,
       badge: null,
     },
+    {
+      id: 'learn' as ActiveTab,
+      label: 'Learn',
+      icon: BookOpen,
+      badge: '30',
+    },
   ];
 
   return (
@@ -48,9 +54,9 @@ export const BottomNav: React.FC<BottomNavProps> = ({
         isDeviceFrame
           ? 'absolute bottom-0 left-0 right-0 z-40'
           : 'fixed bottom-0 left-0 right-0 z-40 max-w-xl mx-auto'
-      } backdrop-blur-xl border-t px-3 pt-2 pb-2 transition-colors bg-stone-50/95 dark:bg-stone-950/95 border-stone-200 dark:border-stone-800 select-none`}
+      } backdrop-blur-xl border-t px-2 pt-2 pb-2 transition-colors bg-stone-50/95 dark:bg-stone-950/95 border-stone-200 dark:border-stone-800 select-none`}
     >
-      <div className="grid grid-cols-4 gap-1">
+      <div className="grid grid-cols-5 gap-0.5">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -59,7 +65,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
             <button
               key={tab.id}
               onClick={() => onChangeTab(tab.id)}
-              className={`relative flex flex-col items-center justify-center py-1 px-1 rounded-xl transition-all ${
+              className={`relative flex flex-col items-center justify-center py-1 px-0.5 rounded-xl transition-all ${
                 isActive
                   ? 'text-cinnamon-600 dark:text-cinnamon-400 font-semibold'
                   : 'text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200'
@@ -71,13 +77,13 @@ export const BottomNav: React.FC<BottomNavProps> = ({
                   strokeWidth={isActive ? 2.3 : 1.8}
                 />
                 {tab.badge !== null && (
-                  <span className="absolute -top-1 -right-2 text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full leading-tight bg-stone-200 text-stone-700 dark:bg-stone-800 dark:text-stone-300">
+                  <span className="absolute -top-1 -right-2.5 text-[9px] font-mono font-medium px-1 py-0.1 rounded-full leading-tight bg-stone-200 text-stone-700 dark:bg-stone-800 dark:text-stone-300">
                     {tab.badge}
                   </span>
                 )}
               </div>
 
-              <span className="text-[11px] mt-1 tracking-tight">
+              <span className="text-[10px] mt-1 tracking-tight truncate max-w-full">
                 {tab.label}
               </span>
             </button>

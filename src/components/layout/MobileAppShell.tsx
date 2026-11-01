@@ -41,6 +41,8 @@ export const MobileAppShell: React.FC<MobileAppShellProps> = ({
         return 'Allocation';
       case 'fees':
         return 'Fees';
+      case 'learn':
+        return 'Knowledge';
     }
   };
 
@@ -52,6 +54,8 @@ export const MobileAppShell: React.FC<MobileAppShellProps> = ({
         return 'Diversification breakdown';
       case 'fees':
         return 'Tiered fee structure & breakdown';
+      case 'learn':
+        return 'Core concepts & investing pathways';
       default:
         return undefined;
     }

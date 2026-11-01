@@ -4,6 +4,7 @@ import { UnifiedDashboard } from './components/dashboard/UnifiedDashboard';
 import { HoldingsList } from './components/holdings/HoldingsList';
 import { AssetAllocationView } from './components/allocation/AssetAllocationView';
 import { TransparentFeesView } from './components/fees/TransparentFeesView';
+import { KnowledgeView } from './components/learn/KnowledgeView';
 import { HoldingDetailModal } from './components/common/HoldingDetailModal';
 import { FeeTaxInfoModal } from './components/fees/FeeTaxInfoModal';
 import { ActiveTab, Holding } from './types';
@@ -68,6 +69,10 @@ export const App: React.FC = () => {
           isPrivate={isPrivate}
           onOpenFeeInfo={() => setIsFeeInfoOpen(true)}
         />
+      )}
+
+      {activeTab === 'learn' && (
+        <KnowledgeView />
       )}
 
       {/* Holding Detail Sheet */}

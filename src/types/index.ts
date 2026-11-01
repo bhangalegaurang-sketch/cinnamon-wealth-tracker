@@ -51,5 +51,51 @@ export interface FeeItem {
   status: 'Billed' | 'Upcoming';
 }
 
-export type ActiveTab = 'dashboard' | 'holdings' | 'allocation' | 'fees';
+export interface FinancialConcept {
+  id: string;
+  name: string;
+  category: string;
+  tagline: string;
+  beginnerDef: string;
+  intermediateDef: string;
+  advancedDef: string;
+  whyItMatters: string;
+  howItWorks: string;
+  formula?: string;
+  formulaExplanation?: string;
+  practicalExample: string;
+  realWorldApplication: string;
+  commonMisconceptions: string[];
+  relatedConceptIds: string[];
+  suggestedNextConceptId?: string;
+  sources: string[];
+  lastReviewed: string;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+}
+
+export interface LearningPathwayStep {
+  stepNumber: number;
+  conceptId: string;
+  title: string;
+  summary: string;
+  numericalInsight: string;
+}
+
+export interface LearningPathway {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  estimatedMinutes: number;
+  steps: LearningPathwayStep[];
+}
+
+export interface KnowledgeCategory {
+  id: string;
+  label: string;
+  count: number;
+  description: string;
+}
+
+export type ActiveTab = 'dashboard' | 'holdings' | 'allocation' | 'fees' | 'learn';
 export type Timeframe = '1M' | '3M' | '6M' | '1Y' | 'ALL';
