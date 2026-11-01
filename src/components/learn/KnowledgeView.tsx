@@ -112,16 +112,18 @@ export const KnowledgeView: React.FC = () => {
   return (
     <div className="space-y-4 pb-24">
       {/* Intro Header */}
-      <section className="p-5 rounded-3xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-subtle">
-        <span className="text-xs font-bold uppercase tracking-wider text-cinnamon-700 dark:text-cinnamon-400">
-          Knowledge Base
+      <section className="p-4 rounded-3xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-subtle flex items-center justify-between">
+        <div>
+          <span className="text-[10px] font-bold uppercase tracking-wider text-cinnamon-700 dark:text-cinnamon-400 block">
+            Knowledge Base
+          </span>
+          <h3 className="text-sm font-bold text-stone-900 dark:text-stone-50 mt-0.5">
+            Investing Chapters
+          </h3>
+        </div>
+        <span className="font-mono text-xs text-stone-500 dark:text-stone-400 bg-stone-100 dark:bg-stone-800 px-2.5 py-1 rounded-xl">
+          30 Topics
         </span>
-        <h3 className="text-base font-bold text-stone-900 dark:text-stone-50 mt-0.5">
-          Investing Chapters
-        </h3>
-        <p className="text-xs text-stone-600 dark:text-stone-400 mt-1 leading-relaxed">
-          Select a chapter below to explore its modules in plain British English without market jargon.
-        </p>
       </section>
 
       {/* Live Search Bar */}
